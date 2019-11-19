@@ -20,6 +20,7 @@
       .footer {
         width: 100%;
         position: absolute;
+        z-index: 1;
         bottom: 0;
         left: 0;
         padding-bottom: 1em;
@@ -55,35 +56,95 @@
       <div class="slides">
         <section data-markdown="slides/title.md"></section>
 
-        <section data-markdown="slides/me.md"></section>
+        <section data-transition="slide" data-markdown="slides/me.md"></section>
 
-        <section data-markdown>
+        <section data-transition="slide" data-markdown>
           # Rust
         </section>
 
         <section>
           A systems programming language that runs blazingly fast, prevents
           segfaults, and guarantees thread safety.
-        </section>
-
-        <section>
           <img
-            src="http://giphygifs.s3.amazonaws.com/media/AAsj7jdrHjtp6/giphy.gif"
+            src="https://giphygifs.s3.amazonaws.com/media/AAsj7jdrHjtp6/giphy.gif"
+            class="fragment"
+            alt="wtf"
+            style="display: block; height: 25vh; margin: 1em auto 0"
           />
         </section>
 
-        <section data-markdown>
+        <section data-transition="slide" data-markdown>
           # Why?
         </section>
 
         <section>
           <img
             src="https://camo.githubusercontent.com/870d5c643c1ffbec63961a5d045de8a7fde95f84/68747470733a2f2f692e696d6775722e636f6d2f4c625a4a676d6d2e676966"
+            alt="costeau petting crab"
           />
         </section>
 
+        <section>
+          <img src="./public/serious.jpg" alt="serious cat" />
+        </section>
+
         <section data-markdown="slides/code-examples.md"></section>
+
+        <section data-transition="slide" data-markdown>
+          # I want to learn Rust!
+        </section>
+
+        <section>
+          <h2>A tutorial?</h2>
+          <h1 class="fragment">
+            🙅‍♀️
+          </h1>
+        </section>
+
+        <section>
+          <img
+            src="https://media.giphy.com/media/NsBAHgohHByp2/source.gif"
+            alt="do something!"
+          />
+        </section>
+
+        <section>
+          <img
+            src="public/retreat.jpg"
+            alt="Codegram's 2019 retreat"
+            style="height: 60vh"
+          />
+          <br />
+          <small>
+            <a
+              href="https://www.codegram.com/blog/our-company-retreat-things-we-learned-during-codegrams-2019-retreat"
+              >Read the blogpost</a
+            >
+          </small>
+        </section>
+
+        <section>
+          <video src="public/live-game.mp4" loop data-autoplay controls />
+        </section>
+
+        <section data-markdown>
+          ## Port Live to Rust!
+        </section>
+
+        <section>
+          <img src="public/live-rust.png" alt="CLI Rust" style="height: 70vh" />
+        </section>
+
+        <section data-transition="slide" data-markdown>
+          # How?
+        </section>
+
+        <section data-markdown="./slides/input.md"></section>
+        <section data-markdown="./slides/objects.md"></section>
+        <section data-markdown="./slides/stats.md"></section>
+        <section data-markdown="./slides/threads.md"></section>
       </div>
+
       <small class="footer">
         <a href="https://www.nuriasatorres.com">nuriasatorres.com</a
         >&nbsp;&nbsp;·&nbsp;
@@ -118,6 +179,7 @@
       // - https://github.com/hakimel/reveal.js#configuration
       // - https://github.com/hakimel/reveal.js#dependencies
       Reveal.initialize({
+        transition: "fade",
         dependencies: [
           { src: "plugin/markdown/marked.js" },
           { src: "plugin/markdown/markdown.js" },

@@ -26,15 +26,25 @@ Ruby
 
 ```
 
-<!-- ```rust
-fn main() {
-  let mut test: [i32; 3] = [0; 3];
+---
 
-  test[1] = 1;
-  test[2] = 2;
+# 🤯
 
-  for x in &test {
-      println!("Current number is: {} ", x);
+---
+
+Rust
+```rust
+
+  fn main() {
+    let mut test: [i32; 3] = [0; 3];
+
+    test[1] = 1;
+    test[2] = 2;
+
+    for x in &test {
+        println!("Current number is: {} ", x);
+    }
   }
-}
-``` -->
+
+
+```
