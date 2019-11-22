@@ -33,6 +33,7 @@ Ruby
 ---
 
 Rust
+
 ```rust
 
   fn main() {
@@ -47,4 +48,38 @@ Rust
   }
 
 
+```
+
+---
+
+Rust: Ownership
+
+```rust
+
+  fn main() {
+      let s1 = String::from("hello");
+      let s2 = s1;
+
+      println!("{}, world!", s1); // error!
+  }
+
+
+```
+
+---
+
+Rust: the compiler
+
+```text
+error[E0382]: use of moved value: `s1`
+ --> src/main.rs:5:28
+  |
+3 |     let s2 = s1;
+  |         -- value moved here
+4 |
+5 |     println!("{}, world!", s1);
+  |                            ^^ value used here after move
+  |
+= "note": move occurs because `s1` has type `std::string::String`, which does
+  not implement the `Copy` trait
 ```

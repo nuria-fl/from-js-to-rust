@@ -123,6 +123,21 @@
 
 ---
 
+### Methods
+
+```rust
+
+  impl Item {
+      pub fn decrease_use(&mut self) -> bool {
+          // ...
+      }
+  }
+
+
+```
+
+---
+
 ```rust
 
   Item {
@@ -138,28 +153,3 @@
 
 <img src="./public/statue.jpeg" style="max-height:75vh" alt="statue">
 
-<!-- ---
-
-### Methods
-
-```rust
-
-  impl Item {
-      pub fn decrease_use(&mut self) -> bool {
-          match self.properties {
-              ItemProperties::ToolItem {
-                  uses_until_breakdown,
-              } => {
-                  *uses_until_breakdown -= 1;
-                  *uses_until_breakdown == 0
-              }
-              _ => {
-                  println!("Item does not degrade");
-                  false
-              }
-          }
-      }
-  }
-
-
-``` -->

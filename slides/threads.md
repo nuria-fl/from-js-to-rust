@@ -5,8 +5,8 @@
 ### 3 threads
 
 <ul>
-  <li class="fragment">Input</li>
   <li class="fragment">Control time</li>
+  <li class="fragment">Input</li>
   <li class="fragment">Main</li>
 </ul>
 
@@ -68,7 +68,26 @@
 
 ---
 
-### Handle input: Messages
+### Handle input
+
+<ul>
+  <li class="fragment">
+    Input Thread:
+    <ul>
+      <li>asks user for input</li>
+    </ul>
+  </li>
+  <li class="fragment">Main Thread:
+   <ul>
+      <li>receives input</li>
+      <li>asks input thread for more</li>
+    </ul>
+  </li>
+</ul>
+
+---
+
+### Messages
 
 ```rust
 
@@ -84,6 +103,8 @@
 
 ---
 
+JavaScript
+
 ```js
 
   document.dispatchEvent(new CustomEvent('hi!'))
@@ -92,6 +113,8 @@
 ```
 
 ---
+
+Rust
 
 ```rust
 
@@ -163,3 +186,9 @@
 
 
 ```
+
+---
+
+Overwhelmed?
+
+![Scared Snow White](https://media.giphy.com/media/ETM2m9EI2pge4/giphy.gif)

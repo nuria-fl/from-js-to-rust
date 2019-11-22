@@ -1,7 +1,3 @@
-# Rust is hard
-
----
-
 ## But don't despair!
 
 If I can do it, so can you.
