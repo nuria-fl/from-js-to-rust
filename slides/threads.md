@@ -2,10 +2,6 @@
 
 ---
 
-Problema: si el jugador espera input indefinidamente deberia morirse, pero hasta que no vuelve a realizar una acción no se miran los stats.
-
----
-
 ### 3 threads
 
 <ul>
@@ -16,18 +12,70 @@ Problema: si el jugador espera input indefinidamente deberia morirse, pero hasta
 
 ---
 
-### Communication between threads
+### Create a thread
 
-- Shared Messages
+```rust
 
-- Shared State
+  thread::spawn(move || loop {
+      thread::sleep(Duration::from_secs(10));
+      println!("Now we should decrease stats…");
+  });
+
+
+```
 
 ---
 
-### Messages
+### Decrease stats: Shared state
 
 ```rust
-let (tx, rx) = mpsc::channel();
+
+  fn main() {
+      let stats = Arc::new(Mutex::new(Stats {
+          water: Stat::new(100.0),
+          food: Stat::new(100.0),
+          energy: Stat::new(100.0),
+      }));
+
+      control_time(&stats);
+
+      // ...
+  }
+
+
+```
+
+---
+
+```rust
+
+  fn control_time(stats: &Arc<Mutex<Stats>>) {
+      let stats = Arc::clone(&stats);
+
+      thread::spawn(move || loop {
+          thread::sleep(Duration::from_secs(10));
+          let mut stats_lock = stats.lock().unwrap();
+          decrease_stats(&mut stats_lock, 10.0);
+      });
+  }
+
+
+```
+
+---
+
+<img src="./public/leap.gif" alt="leap of faith" style="height: 35vh">
+
+---
+
+### Handle input: Messages
+
+```rust
+
+  let (tx, rx) = mpsc::channel();
+  let (tx2, rx2) = mpsc::channel();
+
+
 ```
 
 ---
@@ -36,30 +84,10 @@ let (tx, rx) = mpsc::channel();
 
 ---
 
-Si un arbol cae en el bosque y no hay nadie escuchando, hace ruido?
+```js
 
-En js cuando envias un mensaje si no hay nadie escuchando se pierde
+  document.dispatchEvent(new CustomEvent('hi!'))
 
-En Rust, el arbol no cae hasta que hay alguien para escucharlo.
-
-Y si no hay nadie arde el bosque entero
-
----
-
-### State
-
-Mutex (mutual exclusion)
-
----
-
-```rust
-
-  let stats = Arc::new(Mutex::new(Stats {
-      water: Stat::new(100.0),
-      food: Stat::new(100.0),
-      energy: Stat::new(100.0),
-      health: Stat::new(100.0)
-  }));
 
 ```
 
@@ -67,9 +95,71 @@ Mutex (mutual exclusion)
 
 ```rust
 
-  stats.lock().unwrap()
+  tx.send("hi");
+
+  // ...
+
+  // rx.recv();
+
 
 ```
- it does unlock automatically when it goes "out of scope"
+
 ---
 
+```rust
+
+  thread::spawn(move || loop {
+      let _ = rx2.recv();
+
+      let action = request_input("\nWhat to do?");
+
+      tx.send(action).ok();
+  });
+
+
+```
+
+---
+
+```rust
+
+  loop {
+      if let Ok(action) = rx.try_recv() {
+          match action.trim() {
+              // handle all possible actions
+          }
+      }
+      if is_game_over(&stats.lock().unwrap()) {
+          break;
+      } else {
+          tx2.send(String::from("Ready for input")).ok();
+      }
+  }
+
+
+```
+
+
+---
+
+<video src="public/live-threads.mp4" loop data-autoplay controls />
+
+---
+
+```rust
+
+  loop {
+      if let Ok(action) = rx.try_recv() {
+          match action.trim() {
+              // handle all possible actions
+          }
+          // now we are ready for another action:
+          tx2.send(String::from("Ready for input")).ok();
+      }
+      if is_game_over(&stats.lock().unwrap()) {
+          break;
+      }
+  }
+
+
+```
